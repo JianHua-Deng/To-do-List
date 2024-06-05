@@ -54,18 +54,23 @@ input{
     border-radius: 5%;
     background-color: white;
     width: 400px;
-    height: 400px;
+    height: 450px;
     padding: 1%;
     position: fixed;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr; 
     gap: 7%;
     
 }
 
-.task, .input{
+.task-input, .task-description, .task-due, .input{
     display: flex;
     flex-direction: column;
+
+}
+
+.task-input-container{
+    grid-row: 2 / 3
 }
 
 .input{
@@ -76,20 +81,27 @@ input{
     display: flex;
     justify-content: flex-end;
     justify-self: flex-end;
+    align-items: center;
     gap: 10%
 }
 
 .project-form-title, .task-form-title{
+    grid-row: 1 / 2;
     display: flex;
     justify-content: space-between;
 }
 
 .cancel, .exit{
     background-color: transparent;
-    height: 20px;
+    height: 30px;
     border: transparent;
     color: rgb(168, 168, 168);
     justify-self: flex-end;
+}
+
+.confirm{
+    height: 30px;
+    border: transparent;
 }
 
 .cancel:hover, .exit:hover{
