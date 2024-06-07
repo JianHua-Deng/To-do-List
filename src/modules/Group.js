@@ -1,4 +1,5 @@
 import { Project } from "./project";
+import { createElement } from "./utils";
 
 export class Group {
   constructor() {
@@ -18,5 +19,9 @@ export class Group {
       (project) => project.id !== id
     );
     this.projects = filteredProject;
+  }
+
+  render(){
+    
   }
 }

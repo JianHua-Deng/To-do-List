@@ -3,8 +3,9 @@ const projectModal = document.querySelector(".project.form");
 const taskModal = document.querySelector(".task.form");
 
 
-export function createElement(tag, className, content){
+export function createElement(tag, className, id, content){
     const element = document.createElement(tag);
+    if(id) element.id = id;
     if(className) element.className = className;
     if(content) element.textContent = content;
     return element;
@@ -24,6 +25,18 @@ export function displayProjectModal(){
 export function displayTaskModal(){
     modalContainer.classList.remove("hidden");
     taskModal.classList.remove("hidden");
+}
+
+export function renderProjectList(groups){
+    const sidebarContent = document.querySelector(".sidebar-content");
+    sidebarContent.innerHTML = "";
+    groups.projects.forEach(project => {
+        let projectItem = createElement("li", "project-item", project.id, null);
+        let textContent = createElement("p", null, null, project.name);
+
+        projectItem.appendChild(textContent);
+        sidebarContent.appendChild(projectItem);
+    });
 }
 
 //this is for storing into the local storage but we don't know if the item exist

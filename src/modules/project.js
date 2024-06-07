@@ -1,4 +1,5 @@
 import { Task } from "./Task";
+import { createElement } from "./utils";
 
 export class Project{
     constructor(id, project_name){
@@ -16,6 +17,7 @@ export class Project{
     }
 
     render(){
-        
+        const projectContainer = createElement("div", "projects-display");
+    
     }
 }

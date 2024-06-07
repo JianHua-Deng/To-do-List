@@ -2,7 +2,7 @@ import './styles/styles.css'
 import { Group } from './modules/Group';
 import { Project } from './modules/project';
 import { Task } from './modules/Task';
-import { hideModal, displayProjectModal, displayTaskModal} from './modules/utils';
+import { hideModal, displayProjectModal, displayTaskModal, renderProjectList} from './modules/utils';
 
 const groups = new Group();
 
@@ -20,6 +20,7 @@ projectForm.addEventListener("submit", (e)=>{
         hideModal();
         groups.addProject(new Project(groups.length, projectInput.value));
         console.log(groups.projects[0]);
+        renderProjectList(groups);
     }
 })
 
