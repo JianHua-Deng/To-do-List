@@ -1,11 +1,21 @@
-import { saveToLocal } from "./utils";
+import { Task } from "./Task";
 
-export class Projects{
-    constructor(project_name){
+export class Project{
+    constructor(id, project_name){
+        this.id = id;
         this.name = project_name;
+        this.tasks = [];
     }
 
-    addTask(data){
-        saveToLocal(this.name, data);
+    addTask(task){ 
+        this.tasks.push(task);
+    }
+
+    deleteTask(name){
+        this.tasks = this.tasks.filter((task) => task.name !== name);
+    }
+
+    render(){
+        
     }
 }

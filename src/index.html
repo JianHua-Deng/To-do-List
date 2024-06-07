@@ -13,29 +13,32 @@
         <div class="buttons">
             <button class="add-projects">Add Projects</button>
         </div>
+        <div class="sidebar-content">
+            
+        </div>
     </div>
-    <div class="modal-container">
-        <div class="project form">
+    <div class="modal-container hidden">
+        <form class="project form hidden">
             <div class="project-form-title">
                 <h1>New Project</h1>
                 <button type="button" class="exit">X</button>
             </div>
             <div class="project input">
                 <label for="project">Project Name</label>
-                <input type="text" name="project" required>
+                <input type="text" name="project" id="project-input" required>
             </div>
             <div class="btns">
                 <button type="button" class="cancel">Cancel</button>
-                <button type="submit" class="confirm">Confirm</button>
+                <button type="submit" class="confirm project">Confirm</button>
             </div>
-        </div>
+        </form>
     
         <div class="task form hidden">
             
-                <div class="task-form-title">
-                    <h1>New Task</h1>
-                    <button type="button" class="exit">X</button>
-                </div>
+            <div class="task-form-title">
+                <h1>New Task</h1>
+                <button type="button" class="exit">X</button>
+            </div>
             <div class="task-input-container">
                 <div class="task-input">
                     <label for="task">Task Name</label>
@@ -52,7 +55,7 @@
             </div>
             <div class="btns">
                 <button type="button" class="cancel">Cancel</button>
-                <button type="submit" class="confirm">Confirm</button>
+                <button type="submit" class="confirm task">Confirm</button>
             </div>
         </div>
     </div>

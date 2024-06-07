@@ -1,19 +1,30 @@
 import './styles/styles.css'
+import { Group } from './modules/Group';
+import { Project } from './modules/project';
+import { Task } from './modules/Task';
+import { hideModal, displayProjectModal, displayTaskModal} from './modules/utils';
+
+const groups = new Group();
 
 const cancelbtns = document.querySelectorAll(".exit, .cancel");
+const confirmProjectBtn = document.querySelector(".confirm.project");
+const confirmTaskBtn = document.querySelector(".confirm.task");
 const addProjectBtns = document.querySelector(".add-projects");
-const modalContainer = document.querySelector(".modal-container");
-const projectModal = document.querySelector(".project form");
-const taskModal = document.querySelector(".task form");
+
+const projectForm = document.querySelector(".project.form");
+const projectInput = document.getElementById("project-input");
+
+projectForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    if(projectInput.value !== ""){
+        hideModal();
+        groups.addProject(new Project(groups.length, projectInput.value));
+        console.log(groups.projects[0]);
+    }
+})
+
 cancelbtns.forEach(btn => {
-    btn.addEventListener("click", ()=>{
-        modalContainer.classList.add("hidden");
-        projectModal.classList.add("hidden");
-        taskModal.classList.add("hidden");
-    })
+    btn.addEventListener("click", hideModal);
 });
 
-addProjectBtns.addEventListener("click", ()=>{
-    modalContainer.classList.remove("hidden");
-    projectModal.classList.remove("hidden");
-})
+addProjectBtns.addEventListener("click", displayProjectModal);
