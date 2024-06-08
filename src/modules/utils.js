@@ -50,7 +50,16 @@ export function renderProjectHeader(project){
     projectHeader.textContent = project.name;
     content.appendChild(projectHeader);
 }
+/*
+export function renderTaskList(project){
+    const content = document.querySelector(".content");
+    project.tasks.forEach(task => {
+        const taskItemContainer = createElement("div", "task-item-container", null, null); 
+    });
 
+    content.appendChild(projectHeader);
+}
+*/
 //this is for storing into the local storage but we don't know if the item exist
 export function saveToLocal(project, data){
     const storedData = localStorage.getItem(project);//Get the JSON from the local storage
