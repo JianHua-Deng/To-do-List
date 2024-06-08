@@ -33,10 +33,22 @@ export function renderProjectList(groups){
     groups.projects.forEach(project => {
         let projectItem = createElement("li", "project-item", project.id, null);
         let textContent = createElement("p", null, null, project.name);
+        
+        projectItem.addEventListener("click", () => {
+           renderProjectHeader(project); 
+        });
 
         projectItem.appendChild(textContent);
         sidebarContent.appendChild(projectItem);
     });
+}
+
+export function renderProjectHeader(project){
+    const content = document.querySelector(".content");
+    content.innerHTML = "";
+    const projectHeader = createElement("h1", "project-header", null, null);
+    projectHeader.textContent = project.name;
+    content.appendChild(projectHeader);
 }
 
 //this is for storing into the local storage but we don't know if the item exist
