@@ -60,9 +60,11 @@ export function renderTaskList(project){
     content.appendChild(projectHeader);
 }
 */
+
+
 //this is for storing into the local storage but we don't know if the item exist
-export function saveToLocal(project, data){
-    const storedData = localStorage.getItem(project);//Get the JSON from the local storage
+export function saveToLocal(group){
+    const storedData = localStorage.getItem(group);//Get the JSON from the local storage
     const dataObj = storedData ? JSON.parse(storedData) : []; //If its empty, return a empty array, otherwise, return the parse verision of the JSON
     dataObj.push(data);
 
