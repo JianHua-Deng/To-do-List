@@ -1,4 +1,4 @@
-import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput} from "./doms";
+import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeader} from "./doms";
 
 
 export function createElement(tag, className, id, content){
@@ -33,7 +33,8 @@ export function renderProjectList(groups){
         let textContent = createElement("p", null, null, project.name);
         
         projectItem.addEventListener("click", () => {
-           renderProjectHeader(project); 
+           renderProjectHeader(project);
+           renderTaskList(project); 
         });
 
         projectItem.appendChild(textContent);
@@ -42,21 +43,19 @@ export function renderProjectList(groups){
 }
 
 export function renderProjectHeader(project){
-    const content = document.querySelector(".content");
-    content.innerHTML = "";
-    const projectHeader = createElement("h1", "project-header", null, null);
-    projectHeader.textContent = project.name; 
+    projectHeader.innerHTML = "";
+    projectHeader.textContent = project.name;
+    projectHeader.id = project.id;
 
     const addTaskBtn = createElement("button", "add-task-btn", null, "Add Task");
     addTaskBtn.addEventListener("click", () => {
         displayTaskModal();
     });
     projectHeader.appendChild(addTaskBtn);
-    content.appendChild(projectHeader);
 }
 
 export function renderTaskList(project){
-    const content = document.querySelector(".content");
+    tasksContainer.innerHTML = "";
     project.tasks.forEach(task => {
         let taskItemContainer = createElement("div", "task-item-container", null, null); 
 
@@ -91,8 +90,9 @@ export function renderTaskList(project){
         taskItemContainer.appendChild(taskDue);
         taskItemContainer.appendChild(markCompleteBtn);
         taskItemContainer.appendChild(deleteTaskBtn);
-        content.appendChild(taskItemContainer);
+        tasksContainer.appendChild(taskItemContainer);
     });
+    content.appendChild(tasksContainer);
 }
 
 
