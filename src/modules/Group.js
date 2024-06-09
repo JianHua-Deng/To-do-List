@@ -7,7 +7,7 @@ export class Group {
   }
 
   getProjectById(id) {
-    return this.projects.find((project) => project.id === id);
+    return this.projects.find((project) => project.id == id);
   }
 
   addProject(project) {
@@ -19,9 +19,5 @@ export class Group {
       (project) => project.id !== id
     );
     this.projects = filteredProject;
-  }
-
-  render(){
-    
   }
 }

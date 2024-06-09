@@ -13,11 +13,6 @@ export class Project{
     }
 
     deleteTask(name){
-        this.tasks = this.tasks.filter((task) => task.name !== name);
-    }
-
-    render(){
-        const projectContainer = createElement("div", "projects-display");
-    
+        this.tasks = this.tasks.filter((task) => task.name != name);    
     }
 }

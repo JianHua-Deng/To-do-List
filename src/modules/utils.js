@@ -1,6 +1,4 @@
-const modalContainer = document.querySelector(".modal-container");
-const projectModal = document.querySelector(".project.form");
-const taskModal = document.querySelector(".task.form");
+import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput} from "./doms";
 
 
 export function createElement(tag, className, id, content){
@@ -13,18 +11,18 @@ export function createElement(tag, className, id, content){
 
 export function hideModal(){
     modalContainer.classList.add("hidden");
-    projectModal.classList.add("hidden");
-    taskModal.classList.add("hidden");
+    projectForm.classList.add("hidden");
+    taskForm.classList.add("hidden");
 }
 
 export function displayProjectModal(){
     modalContainer.classList.remove("hidden");
-    projectModal.classList.remove("hidden");
+    projectForm.classList.remove("hidden");
 }
 
 export function displayTaskModal(){
     modalContainer.classList.remove("hidden");
-    taskModal.classList.remove("hidden");
+    taskForm.classList.remove("hidden");
 }
 
 export function renderProjectList(groups){
@@ -47,39 +45,60 @@ export function renderProjectHeader(project){
     const content = document.querySelector(".content");
     content.innerHTML = "";
     const projectHeader = createElement("h1", "project-header", null, null);
-    projectHeader.textContent = project.name;
+    projectHeader.textContent = project.name; 
+
+    const addTaskBtn = createElement("button", "add-task-btn", null, "Add Task");
+    addTaskBtn.addEventListener("click", () => {
+        displayTaskModal();
+    });
+    projectHeader.appendChild(addTaskBtn);
     content.appendChild(projectHeader);
 }
-/*
+
 export function renderTaskList(project){
     const content = document.querySelector(".content");
     project.tasks.forEach(task => {
-        const taskItemContainer = createElement("div", "task-item-container", null, null); 
-    });
+        let taskItemContainer = createElement("div", "task-item-container", null, null); 
 
-    content.appendChild(projectHeader);
+        let taskName = createElement("p", "task-name", null, task.name);
+        let taskDescription = createElement("p", "task-description", null, task.description);
+        let taskDue = createElement("p", "task-due", null, task.dueDate);
+        let markCompleteBtn = createElement("button", "mark-complete-btn", null, "Mark Complete");
+        let markIncompleteBtn = createElement("button", "mark-incomplete-btn", null, "Mark Incomplete");
+        let deleteTaskBtn = createElement("button", "delete-task-btn", null, "Delete Task");
+
+        markCompleteBtn.addEventListener("click", () => {
+            task.markComplete();
+            taskItemContainer.classList.add("completed");
+            taskItemContainer.removeChild(markCompleteBtn);
+            taskItemContainer.appendChild(markIncompleteBtn);
+        });
+
+        markIncompleteBtn.addEventListener("click", () => {
+            task.markIncomplete();
+            taskItemContainer.classList.remove("completed");
+            taskItemContainer.removeChild(markIncompleteBtn);
+            taskItemContainer.appendChild(markCompleteBtn);
+        });
+
+        deleteTaskBtn.addEventListener("click", () => {
+            project.deleteTask(task.name);
+            renderTaskList(project);
+        });
+
+        taskItemContainer.appendChild(taskName);
+        taskItemContainer.appendChild(taskDescription);
+        taskItemContainer.appendChild(taskDue);
+        taskItemContainer.appendChild(markCompleteBtn);
+        taskItemContainer.appendChild(deleteTaskBtn);
+        content.appendChild(taskItemContainer);
+    });
 }
-*/
+
 
 
 //this is for storing into the local storage but we don't know if the item exist
-export function saveToLocal(group){
-    const storedData = localStorage.getItem(group);//Get the JSON from the local storage
-    const dataObj = storedData ? JSON.parse(storedData) : []; //If its empty, return a empty array, otherwise, return the parse verision of the JSON
-    dataObj.push(data);
-
-    localStorage.setItem(project, JSON.stringify(dataObj));
+export function saveToLocal(key, group){
+    localStorage.setItem(key, JSON.stringify(group));
 }
 
-export function loadLocalStorage(project){
-    return JSON.parse(localStorage.getItem(project));
-}
-
-export function updateLocalStorageItem(project, data){
-    localStorage.setItem(project, JSON.stringify(data));
-}
-
-export function deleteTask(project, name){
-    obj = loadLocalStorage(project);
-    
-}

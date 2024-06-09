@@ -111,3 +111,7 @@ input{
 .hidden{
     display: none;
 }
+
+.completed{
+    background-color: rgb(25, 206, 25);
+}

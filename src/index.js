@@ -2,30 +2,35 @@ import './styles/styles.css'
 import { Group } from './modules/Group';
 import { Project } from './modules/project';
 import { Task } from './modules/Task';
-import { hideModal, displayProjectModal, displayTaskModal, renderProjectList} from './modules/utils';
+import { hideModal, displayProjectModal, displayTaskModal, renderProjectList, renderTaskList} from './modules/utils';
+import {cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput} from './modules/doms';
 
-const groups = new Group();
-
-const cancelbtns = document.querySelectorAll(".exit, .cancel");
-const confirmProjectBtn = document.querySelector(".confirm.project");
-const confirmTaskBtn = document.querySelector(".confirm.task");
-const addProjectBtns = document.querySelector(".add-projects");
-
-const projectForm = document.querySelector(".project.form");
-const projectInput = document.getElementById("project-input");
+const groups = localStorage.getItem("groups") ? loadLocalStorage("groups") : new Group();
 
 projectForm.addEventListener("submit", (e)=>{
     e.preventDefault();
-    if(projectInput.value !== ""){
-        hideModal();
-        groups.addProject(new Project(groups.length, projectInput.value));
-        console.log(groups.projects[0]);
-        renderProjectList(groups);
-    }
+    hideModal();
+    let project = new Project(groups.projects.length + 1, projectInput.value);
+    groups.addProject(project);
+    renderProjectList(groups);
+
 })
+
+taskForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    hideModal();
+    let projectItem = document.querySelector(".project-item");
+    let projectId = projectItem.id
+
+    let project = groups.getProjectById(projectId);
+    project.addTask(new Task(project.tasks.length + 1, taskNameInput.value, taskDescriptionInput.value, taskDueInput.value));
+    renderTaskList(project);
+    
+});
 
 cancelbtns.forEach(btn => {
     btn.addEventListener("click", hideModal);
 });
 
 addProjectBtns.addEventListener("click", displayProjectModal);
+

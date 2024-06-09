@@ -33,7 +33,7 @@
             </div>
         </form>
     
-        <div class="task form hidden">
+        <form class="task form hidden">
             
             <div class="task-form-title">
                 <h1>New Task</h1>
@@ -42,21 +42,21 @@
             <div class="task-input-container">
                 <div class="task-input">
                     <label for="task">Task Name</label>
-                    <input type="text" name="task" required>
+                    <input type="text" name="task" id="task-name" required>
                 </div>
                 <div class="task-description">
                     <label for="description">Description</label>
-                    <input type="text" name="description" required>
+                    <input type="text" name="description" id="task-description" required>
                 </div>
                 <div class="task-due">
                     <label for="due-date">Due</label>
-                    <input type="date" name="due-date">
+                    <input type="date" name="due-date" id="task-due">
                 </div>
             </div>
             <div class="btns">
                 <button type="button" class="cancel">Cancel</button>
                 <button type="submit" class="confirm task">Confirm</button>
-            </div>
+            </form>
         </div>
     </div>
     <div class="content"></div>
