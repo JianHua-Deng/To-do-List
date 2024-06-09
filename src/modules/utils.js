@@ -66,6 +66,7 @@ export function renderTaskList(project){
         let markIncompleteBtn = createElement("button", "mark-incomplete-btn", null, "Mark Incomplete");
         let deleteTaskBtn = createElement("button", "delete-task-btn", null, "Delete Task");
 
+
         markCompleteBtn.addEventListener("click", () => {
             task.markComplete();
             taskItemContainer.classList.add("completed");
@@ -88,8 +89,14 @@ export function renderTaskList(project){
         taskItemContainer.appendChild(taskName);
         taskItemContainer.appendChild(taskDescription);
         taskItemContainer.appendChild(taskDue);
-        taskItemContainer.appendChild(markCompleteBtn);
         taskItemContainer.appendChild(deleteTaskBtn);
+        if(task.status){
+            taskItemContainer.classList.add("completed");
+            taskItemContainer.appendChild(markIncompleteBtn);   
+        }else{
+            
+            taskItemContainer.appendChild(markCompleteBtn);
+        }
         tasksContainer.appendChild(taskItemContainer);
     });
     content.appendChild(tasksContainer);

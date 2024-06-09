@@ -13,8 +13,8 @@ projectForm.addEventListener("submit", (e)=>{
     let project = new Project(groups.projects.length + 1, projectInput.value);
     groups.addProject(project);
     renderProjectList(groups);
-
-})
+    e.target.reset();
+});
 
 taskForm.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -25,7 +25,7 @@ taskForm.addEventListener("submit", (e)=>{
     let project = groups.getProjectById(projectId);
     project.addTask(new Task(project.tasks.length + 1, taskNameInput.value, taskDescriptionInput.value, taskDueInput.value));
     renderTaskList(project);
-    
+    e.target.reset();
 });
 
 cancelbtns.forEach(btn => {
