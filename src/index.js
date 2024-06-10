@@ -3,7 +3,7 @@ import { Group } from './modules/Group';
 import { Project } from './modules/project';
 import { Task } from './modules/Task';
 import { hideModal, displayProjectModal, displayTaskModal, renderProjectList, renderTaskList} from './modules/utils';
-import {cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeader} from './modules/doms';
+import {cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeaderContainer} from './modules/doms';
 
 const groups = localStorage.getItem("groups") ? loadLocalStorage("groups") : new Group();
 
@@ -19,7 +19,7 @@ projectForm.addEventListener("submit", (e)=>{
 taskForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     hideModal();
-    let projectId = projectHeader.id;
+    let projectId = projectHeaderContainer.id;
     console.log(projectId);
 
     let project = groups.getProjectById(projectId);

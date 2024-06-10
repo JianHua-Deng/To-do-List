@@ -10,8 +10,9 @@
         <h1>To-Do List</h1>
     </div>
     <div class="sidebar">
-        <div class="buttons">
-            <button class="add-projects">Add Projects</button>
+        <div class="add-projects-container">
+            <h2 class="add-projects-title">Projects</h2>
+            <button class="add-projects-button">+</button>
         </div>
         <ul class="sidebar-content">
             
@@ -50,7 +51,7 @@
                 </div>
                 <div class="task-due">
                     <label for="due-date">Due</label>
-                    <input type="date" name="due-date" id="task-due">
+                    <input type="date" name="due-date" id="task-due" required>
                 </div>
             </div>
             <div class="btns">
@@ -60,7 +61,7 @@
         </div>
     </div>
     <div class="content">
-        <h1 class="project-header"></h1>
+        <div class="project-header-container"></div>
         <div class="tasks-container"></div>
     </div>
 

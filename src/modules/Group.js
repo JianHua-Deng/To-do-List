@@ -16,7 +16,7 @@ export class Group {
 
   deleteProject(id) {
     const filteredProject = this.projects.filter(
-      (project) => project.id !== id
+      (project) => project.id != id
     );
     this.projects = filteredProject;
   }

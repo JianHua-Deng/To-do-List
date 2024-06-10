@@ -1,4 +1,4 @@
-import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeader} from "./doms";
+import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeaderContainer} from "./doms";
 
 
 export function createElement(tag, className, id, content){
@@ -31,37 +31,50 @@ export function renderProjectList(groups){
     groups.projects.forEach(project => {
         let projectItem = createElement("li", "project-item", project.id, null);
         let textContent = createElement("p", null, null, project.name);
+        let deleteProjectBtn = createElement("button", "delete-project-btn", null, "X");
         
         projectItem.addEventListener("click", () => {
            renderProjectHeader(project);
            renderTaskList(project); 
         });
 
+        deleteProjectBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            groups.deleteProject(project.id);
+            renderProjectList(groups);
+            projectHeaderContainer.textContent = "";
+            tasksContainer.innerHTML = "";
+        });
+
         projectItem.appendChild(textContent);
+        projectItem.appendChild(deleteProjectBtn);
         sidebarContent.appendChild(projectItem);
     });
 }
 
 export function renderProjectHeader(project){
-    projectHeader.innerHTML = "";
-    projectHeader.textContent = project.name;
-    projectHeader.id = project.id;
+    projectHeaderContainer.innerHTML = "";
+    projectHeaderContainer.id = project.id;
 
-    const addTaskBtn = createElement("button", "add-task-btn", null, "Add Task");
+    let projectHeaderText = createElement("h1", null, null, project.name);
+    let addTaskBtn = createElement("button", "add-task-btn", null, "Add Task");
     addTaskBtn.addEventListener("click", () => {
         displayTaskModal();
     });
-    projectHeader.appendChild(addTaskBtn);
+    projectHeaderContainer.appendChild(projectHeaderText);
+    projectHeaderContainer.appendChild(addTaskBtn);
 }
 
 export function renderTaskList(project){
     tasksContainer.innerHTML = "";
     project.tasks.forEach(task => {
         let taskItemContainer = createElement("div", "task-item-container", null, null); 
+        let taskLeftContainer = createElement("div", "task-text-container", null, null);
+        let taskRightContainer = createElement("div", "task-options-container", null, null);
 
-        let taskName = createElement("p", "task-name", null, task.name);
+        let taskName = createElement("h2", "task-name", null, task.name);
         let taskDescription = createElement("p", "task-description", null, task.description);
-        let taskDue = createElement("p", "task-due", null, task.dueDate);
+        let taskDue = createElement("span", "task-due", null, task.dueDate);
         let markCompleteBtn = createElement("button", "mark-complete-btn", null, "Mark Complete");
         let markIncompleteBtn = createElement("button", "mark-incomplete-btn", null, "Mark Incomplete");
         let deleteTaskBtn = createElement("button", "delete-task-btn", null, "Delete Task");
@@ -86,10 +99,11 @@ export function renderTaskList(project){
             renderTaskList(project);
         });
 
-        taskItemContainer.appendChild(taskName);
-        taskItemContainer.appendChild(taskDescription);
-        taskItemContainer.appendChild(taskDue);
-        taskItemContainer.appendChild(deleteTaskBtn);
+        taskLeftContainer.appendChild(taskName);
+        taskLeftContainer.appendChild(taskDescription);
+        taskLeftContainer.appendChild(taskDue);
+        taskLeftContainer.appendChild(deleteTaskBtn);
+
         if(task.status){
             taskItemContainer.classList.add("completed");
             taskItemContainer.appendChild(markIncompleteBtn);   

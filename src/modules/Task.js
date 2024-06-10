@@ -14,5 +14,9 @@ export class Task{
     markIncomplete(){
         this.status = false;
     }
+
+    toggleStatus(){
+        this.status = !this.status;
+    }
     
 }
