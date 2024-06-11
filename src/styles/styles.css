@@ -101,6 +101,9 @@ input{
 
 .tasks-container{
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
     overflow: auto;
 }
 
@@ -138,28 +141,29 @@ input{
 }
 
 .task-item-container{
-    display: grid;
-    grid-template: 1fr 1fr 1fr / 1fr 5fr 1fr;
+    height: 10%;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
     background-color: rgb(70, 70, 151);
     border-radius: 15px;
     box-shadow: rgb(70, 70, 151) 0px 5px 15px;
     color: white;
 }
 
-.task-left-container{
-    grid-column: 1 / 2;
-    grid-row: 1 / 4;
-    display: grid;
-    justify-self: center;
+.task-top-container, .task-bottom-container{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     
 }
 
-.task-right-container{
-    grid-column: 3 / 4;
-    grid-row: 2 / 3;
-    display: flex;
-    justify-self: center;
+.mark-complete-btn{
+    height: 20px;
+    width: 20px;
 }
+
 
 .task-input-container{
     grid-row: 2 / 3

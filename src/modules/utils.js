@@ -1,5 +1,8 @@
 import {all, cancelbtns, confirmProjectBtn, confirmTaskBtn, addProjectBtns, modalContainer, projectForm, taskForm, projectInput, taskNameInput, taskDescriptionInput, taskDueInput, tasksContainer, content, projectHeaderContainer} from "./doms";
-
+import { Group } from "./Group";
+import { Project } from "./project";
+import { Task } from "./Task";
+import { groups } from "../index.js";
 
 export function createElement(tag, className, id, content){
     const element = document.createElement(tag);
@@ -42,8 +45,10 @@ export function renderProjectList(groups){
             e.stopPropagation();
             groups.deleteProject(project.id);
             renderProjectList(groups);
-            projectHeaderContainer.textContent = "";
-            tasksContainer.innerHTML = "";
+            if(projectHeaderContainer.id == project.id){
+                projectHeaderContainer.textContent = "";
+                tasksContainer.innerHTML = "";
+            }
         });
 
         projectItem.appendChild(textContent);
@@ -69,8 +74,8 @@ export function renderTaskList(project){
     tasksContainer.innerHTML = "";
     project.tasks.forEach(task => {
         let taskItemContainer = createElement("div", "task-item-container", null, null); 
-        let taskLeftContainer = createElement("div", "task-left-container", null, null);
-        let taskRightContainer = createElement("div", "task-right-container", null, null);
+        let taskTopContainer = createElement("div", "task-top-container", null, null);
+        let taskBottomContainer = createElement("div", "task-bottom-container", null, null);
 
         let taskName = createElement("h3", "task-name", null, task.name);
         let taskDescription = createElement("p", "task-description", null, task.description);
@@ -80,16 +85,17 @@ export function renderTaskList(project){
 
         markCompleteBtn.addEventListener("click", () => {
             project.deleteTask(task.name);
+            saveToLocal("groups", groups);
             renderTaskList(project);
         });
 
-        taskLeftContainer.appendChild(taskName);
-        taskLeftContainer.appendChild(taskDescription);
-        taskRightContainer.appendChild(taskDue);
-        taskRightContainer.appendChild(markCompleteBtn);
+        taskTopContainer.appendChild(taskName);
+        taskTopContainer.appendChild(taskDue);
+        taskBottomContainer.appendChild(taskDescription);
+        taskBottomContainer.appendChild(markCompleteBtn);
 
-        taskItemContainer.appendChild(taskLeftContainer);
-        taskItemContainer.appendChild(taskRightContainer);
+        taskItemContainer.appendChild(taskTopContainer);
+        taskItemContainer.appendChild(taskBottomContainer);
 
         tasksContainer.appendChild(taskItemContainer);
     });
@@ -103,3 +109,21 @@ export function saveToLocal(key, group){
     localStorage.setItem(key, JSON.stringify(group));
 }
 
+export function loadLocalStorage(key){
+    const data = localStorage.getItem(key);
+    if (data === null){
+        return new Group();
+    }else{
+        const parsedData = JSON.parse(data);
+        const groups = new Group();
+        parsedData.projects.forEach(project => {
+            const newProject = new Project(project.id, project.name);
+            project.tasks.forEach(task => {
+                const newTask = new Task(task.id, task.name, task.description, task.dueDate);
+                newProject.addTask(newTask);
+            });
+            groups.addProject(newProject);
+        })
+        return groups;
+    }
+}
