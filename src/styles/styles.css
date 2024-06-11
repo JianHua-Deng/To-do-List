@@ -137,8 +137,28 @@ input{
     align-items: center;
 }
 
-.task-item.container{
+.task-item-container{
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 5fr 1fr;
+    background-color: rgb(70, 70, 151);
+    border-radius: 15px;
+    box-shadow: rgb(70, 70, 151) 0px 5px 15px;
+    color: white;
+}
 
+.task-left-container{
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    display: grid;
+    justify-self: center;
+    
+}
+
+.task-right-container{
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    display: flex;
+    justify-self: center;
 }
 
 .task-input-container{

@@ -69,48 +69,28 @@ export function renderTaskList(project){
     tasksContainer.innerHTML = "";
     project.tasks.forEach(task => {
         let taskItemContainer = createElement("div", "task-item-container", null, null); 
-        let taskLeftContainer = createElement("div", "task-text-container", null, null);
-        let taskRightContainer = createElement("div", "task-options-container", null, null);
+        let taskLeftContainer = createElement("div", "task-left-container", null, null);
+        let taskRightContainer = createElement("div", "task-right-container", null, null);
 
-        let taskName = createElement("h2", "task-name", null, task.name);
+        let taskName = createElement("h3", "task-name", null, task.name);
         let taskDescription = createElement("p", "task-description", null, task.description);
-        let taskDue = createElement("span", "task-due", null, task.dueDate);
-        let markCompleteBtn = createElement("button", "mark-complete-btn", null, "Mark Complete");
-        let markIncompleteBtn = createElement("button", "mark-incomplete-btn", null, "Mark Incomplete");
-        let deleteTaskBtn = createElement("button", "delete-task-btn", null, "Delete Task");
+        let taskDue = createElement("span", "task-due", null, ("Due: " + task.dueDate));
+        let markCompleteBtn = createElement("button", "mark-complete-btn", null, null);
 
 
         markCompleteBtn.addEventListener("click", () => {
-            task.markComplete();
-            taskItemContainer.classList.add("completed");
-            taskItemContainer.removeChild(markCompleteBtn);
-            taskItemContainer.appendChild(markIncompleteBtn);
-        });
-
-        markIncompleteBtn.addEventListener("click", () => {
-            task.markIncomplete();
-            taskItemContainer.classList.remove("completed");
-            taskItemContainer.removeChild(markIncompleteBtn);
-            taskItemContainer.appendChild(markCompleteBtn);
-        });
-
-        deleteTaskBtn.addEventListener("click", () => {
             project.deleteTask(task.name);
             renderTaskList(project);
         });
 
         taskLeftContainer.appendChild(taskName);
         taskLeftContainer.appendChild(taskDescription);
-        taskLeftContainer.appendChild(taskDue);
-        taskLeftContainer.appendChild(deleteTaskBtn);
+        taskRightContainer.appendChild(taskDue);
+        taskRightContainer.appendChild(markCompleteBtn);
 
-        if(task.status){
-            taskItemContainer.classList.add("completed");
-            taskItemContainer.appendChild(markIncompleteBtn);   
-        }else{
-            
-            taskItemContainer.appendChild(markCompleteBtn);
-        }
+        taskItemContainer.appendChild(taskLeftContainer);
+        taskItemContainer.appendChild(taskRightContainer);
+
         tasksContainer.appendChild(taskItemContainer);
     });
     content.appendChild(tasksContainer);
