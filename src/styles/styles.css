@@ -37,6 +37,7 @@ input{
 }
 
 .sidebar{
+    height: 100%;
     grid-row: 2 / 4;
     background-color: rgb(233, 233, 233);
     display: flex;
@@ -104,7 +105,9 @@ input{
     display: flex;
     flex-direction: column;
     gap: 2%;
-    overflow: auto;
+    overflow-y: scroll;
+    padding: 30px;
+    
 }
 
 .form{
@@ -146,8 +149,14 @@ input{
     display: flex;
     flex-direction: column;
     background-color: rgb(70, 70, 151);
-    border-radius: 15px;
-    box-shadow: rgb(70, 70, 151) 0px 5px 15px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 30px -10px rgb(70, 70, 151);
+    color: white;
+}
+
+.task-item-container:hover{
+    transition: 0.2s;
+    background-color: rgb(59, 59, 128);
     color: white;
 }
 
@@ -160,8 +169,17 @@ input{
 }
 
 .mark-complete-btn{
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
+}
+
+.mark-complete-btn span{
+    display: none;
+}
+
+.mark-complete-btn:hover span {
+    display: block;
+    text-align: center;
 }
 
 

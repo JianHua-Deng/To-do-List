@@ -80,8 +80,10 @@ export function renderTaskList(project){
         let taskName = createElement("h3", "task-name", null, task.name);
         let taskDescription = createElement("p", "task-description", null, task.description);
         let taskDue = createElement("span", "task-due", null, ("Due: " + task.dueDate));
-        let markCompleteBtn = createElement("button", "mark-complete-btn", null, null);
+        let markCompleteBtn = createElement("button", "mark-complete-btn", null, );
+        let completeBtnText = createElement("span", null, null, "✓");
 
+        markCompleteBtn.appendChild(completeBtnText);
 
         markCompleteBtn.addEventListener("click", () => {
             project.deleteTask(task.name);
